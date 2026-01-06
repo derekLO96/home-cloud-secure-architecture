@@ -38,6 +38,76 @@ All communication occurs over an encrypted WireGuard network. The Immich service
 
 This project was guided by the following security principles:
 
-- **Zero public exposure**
+- **Zero** public exposure
+  no direct internet-facing services
 
-* no direct internet-facing services
+- Least privilege
+  restricted routing and peer access
+
+- Defense in depth
+  VPN, firewall configuration and container isolation
+
+- Separation of concerns
+  relay, servers, and clients are isolated roles
+
+## Threat Model (Summary)
+
+- Public service exploitation
+- Unauthorized network access
+- Brute-force SSH attacks
+- Lateral movement
+- Service compromise
+
+A detailed threat analysis is available in (threat model location)
+
+## Security Controls Implemented
+
+- WireGuard private overlay network
+- No inbound NAT to the private server (pi5)
+- Iptables forwarding and NAT rules on relay
+- Docker container isolation
+- SSH key-only authentication
+- Fail2Ban on exposed services
+- Principle of least exposure for all components
+
+## Why This Architecture?
+
+ypical self-hosting approaches rely on port forwarding or reverse proxies exposed to the internet. This project intentionally avids that model for its exposure and increased surface of attack.
+
+**Benefits of this design**:
+
+- Smaller attack surface
+- Encrypted traffic end-to-end
+- No dependency on public DNS or TLS
+- Safer access from untrusted networks (public Wi-Fi/cellular networks)
+
+**Tradeoffs**:
+
+- Increased networking complexity
+- VPN dependency for access
+- Advanced routing configurations
+
+## Technologies Used
+
+- WireGuard
+- Fail2Ban
+- Docker & Docker compose
+- Ubuntu Linux (x86)
+- Raspberry pi OS Lite - Debian bookworm (ARM)
+- Oracle Ubuntu instance (1 virtual x86 core)
+- Iptables / netfilter / ufw (uncomplicated fire wall)
+- Immich (self-hosted photo platform)
+
+## Repository Structure
+
+## Lessons Learned
+
+- Iptable configuration on both the home server and the Oracle bastion must be configured _after_ WireGuard is setup to ensure proper communication to avoid frustration.
+- Proper network configuration of the Oracle server on Oracle's control panel _after_ Wireguard setup.
+- Cloud relays simplify secure access without exposing home infrastructure
+- Security-first design often increases complexity but significantly reduces risk
+- WireGuard is extremely efficient and fast in data transfer even when the files are Gigabytes in size
+
+## Disclaimer
+
+This repository is for **educational and demonstration purposes** only. Configuration files are sanitized and should be adapted before use in production environments. Never share your private keys with anyone or expose your home's IP addresses on the internet, these informations are sensitive and should be guarded with utmost care.
