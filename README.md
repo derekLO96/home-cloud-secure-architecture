@@ -14,7 +14,7 @@ This repository is structured in a way that clearly separates concepts and their
 
 ```bash
 main
-|-- README.mo
+|-- README.md
 |-- docs/
 |   |-- architecture.md
 |   |-- threat-model.md
