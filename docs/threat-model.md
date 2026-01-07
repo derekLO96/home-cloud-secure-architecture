@@ -23,15 +23,15 @@ The loss of confidentiality, integrity, or availability of these assets would re
 
 ## Threat Actors
 
-| Actor                                                               | Capability | Motivation                       |
-| ------------------------------------------------------------------- | ---------- | -------------------------------- |
+|                                Actor                                | Capability |            Motivation            |
+| :-----------------------------------------------------------------: | :--------: | :------------------------------: |
 |                                                                     |            |
-| Opportunistic internet scanners Low Exploit exposed services        | Low        | Exploit exposed services         |
+|    Opportunistic internet scanners Low Exploit exposed services     |    Low     |     Exploit exposed services     |
 |                                                                     |            |
-| Targeted attackers Medium Data theft or persistence                 | Medium     | Data theft or persistence        |
+|         Targeted attackers Medium Data theft or persistence         |   Medium   |    Data theft or persistence     |
 |                                                                     |            |
-| Malicious insiders Medium Unauthorized access                       | Medium     | Unauthorized access              |
+|            Malicious insiders Medium Unauthorized access            |   Medium   |       Unauthorized access        |
 |                                                                     |            |
-| Bots Low-Medium Brute-force, enumeration                            | Low-Medium | Brute-force, enumeration         |
+|              Bots Low-Medium Brute-force, enumeration               | Low-Medium |     Brute-force, enumeration     |
 |                                                                     |            |
-| Accidental misconfiguration High Unintentional exposure/leaked data | High       | Unintentional exposure / leakage |
+| Accidental misconfiguration High Unintentional exposure/leaked data |    High    | Unintentional exposure / leakage |
