@@ -12,23 +12,40 @@ This project was built as a hands-on cybersecurity exercise focused on secure ar
 
 This repository is structured in a way that clearly separates concepts and their relative information.
 
-For Wireguard and the decisions made surrounding the protocol: /wireguard
-
-For the UFW (uncomplicated fire wall) and the decisions made around that: /UFW
-
-For iptables and their configuration: /iptables
-
-For Fail2Ban related configurations: /Fail2Ban
-
-For the Immich server configurations: /Immich
-
-For SSH configurations on the raspberry pi: /SSH/pi5
-
-For SSH configurations on the Oracle Ubuntu instance: /SSH/Oracle
-
-For SSH configurations on my personal device: /SSH/personal-device
-
-Each folder has their own markdown file explaining the thought process and decisions made as well as other files that pertain to the their configurations.
+.
+|-- README.mo
+|-- docs/
+| |-- architecture.md
+| |-- threat-model.md
+| |-- security-controls.md
+| |-- deployment.md
+| |-- lessons-learned.md
+|
+|-- diagrams/
+| |-- network.png
+|
+|-- configs/
+| |-- WireGuard/
+| | |-- pi5/
+| | |-- oracle/
+| | |-- personal-device/
+| |
+| |-- SSH/
+| | |-- pi5/
+| | |-- oracle/
+| | |-- personal-device/
+| |
+| |-- docker/
+| |
+| |-- ufw/
+| | |-- pi5/
+| | |-- oracle/
+| | |-- personal-device/
+| |
+| |-- iptables/
+| | |-- pi5/
+| | |-- oracle/
+|
 
 ## Goals
 
@@ -37,6 +54,7 @@ Each folder has their own markdown file explaining the thought process and decis
 - Eliminate inbound internet access to home server
 - Secure remote access using encrypted tunnels _only_
 - Apply real-world security principles beyond basic homelab setup
+- Create a middle man that is publicly exposed, but hardened, and that would route the encrypted tunnel to home server
 
 ## High-Level architecture
 
