@@ -25,13 +25,13 @@ The loss of confidentiality, integrity, or availability of these assets would re
 
 | Actor                                                               | Capability | Motivation                       |
 | ------------------------------------------------------------------- | ---------- | -------------------------------- |
-|                                                                     |
+|                                                                     |            |
 | Opportunistic internet scanners Low Exploit exposed services        | Low        | Exploit exposed services         |
+|                                                                     |            |
 | Targeted attackers Medium Data theft or persistence                 | Medium     | Data theft or persistence        |
-|                                                                     |
+|                                                                     |            |
 | Malicious insiders Medium Unauthorized access                       | Medium     | Unauthorized access              |
-|                                                                     |
+|                                                                     |            |
 | Bots Low-Medium Brute-force, enumeration                            | Low-Medium | Brute-force, enumeration         |
-|                                                                     |
+|                                                                     |            |
 | Accidental misconfiguration High Unintentional exposure/leaked data | High       | Unintentional exposure / leakage |
-|                                                                     |
