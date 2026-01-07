@@ -12,7 +12,7 @@ This project was built as a hands-on cybersecurity exercise focused on secure ar
 
 This repository is structured in a way that clearly separates concepts and their relative information.
 
-.
+'''bash
 |-- README.mo
 |-- docs/
 | |-- architecture.md
@@ -46,6 +46,7 @@ This repository is structured in a way that clearly separates concepts and their
 | | |-- pi5/
 | | |-- oracle/
 |
+'''
 
 ## Goals
 
