@@ -13,38 +13,39 @@ This project was built as a hands-on cybersecurity exercise focused on secure ar
 This repository is structured in a way that clearly separates concepts and their relative information.
 
 ```bash
+main
 |-- README.mo
 |-- docs/
-| |-- architecture.md
-| |-- threat-model.md
-| |-- security-controls.md
-| |-- deployment.md
-| |-- lessons-learned.md
+|   |-- architecture.md
+|   |-- threat-model.md
+|   |-- security-controls.md
+|   |-- deployment.md
+|   |-- lessons-learned.md
 |
 |-- diagrams/
-| |-- network.png
+|   |-- network.png
 |
 |-- configs/
-| |-- WireGuard/
-| | |-- pi5/
-| | |-- oracle/
-| | |-- personal-device/
-| |
-| |-- SSH/
-| | |-- pi5/
-| | |-- oracle/
-| | |-- personal-device/
-| |
-| |-- docker/
-| |
-| |-- ufw/
-| | |-- pi5/
-| | |-- oracle/
-| | |-- personal-device/
-| |
-| |-- iptables/
-| | |-- pi5/
-| | |-- oracle/
+|   |-- WireGuard/
+|   |   |-- pi5/
+|   |   |-- oracle/
+|   |   |-- personal-device/
+|   |
+|   |-- SSH/
+|   |   |-- pi5/
+|   |   |-- oracle/
+|   |   |-- personal-device/
+|   |
+|   |-- docker/
+|   |
+|   |-- ufw/
+|   |   |-- pi5/
+|   |   |-- oracle/
+|   |   |-- personal-device/
+|   |
+|   |-- iptables/
+|   |   |-- pi5/
+|   |   |-- oracle/
 |
 ```
 
