@@ -8,6 +8,28 @@ This project documents the design and deployment of a secure, self-hosted photo 
 Instead of exposing services directly to the internet, the system uses a private WireGuard overlay network with traffic routed through a hardened cloud relay. The Immich service itself runs on a private ARM device and is never publicly reachable, significantly reducing the attack surface.
 This project was built as a hands-on cybersecurity exercise focused on secure architecture, VPN routing, Docker isolation, and Linux hardening.
 
+## Repository Structure
+
+This repository is structured in a way that clearly separates concepts and their relative information.
+
+For Wireguard and the decisions made surrounding the protocol: /wireguard
+
+For the UFW (uncomplicated fire wall) and the decisions made around that: /UFW
+
+For iptables and their configuration: /iptables
+
+For Fail2Ban related configurations: /Fail2Ban
+
+For the Immich server configurations: /Immich
+
+For SSH configurations on the raspberry pi: /SSH/pi5
+
+For SSH configurations on the Oracle Ubuntu instance: /SSH/Oracle
+
+For SSH configurations on my personal device: /SSH/personal-device
+
+Each folder has their own markdown file explaining the thought process and decisions made as well as other files that pertain to the their configurations.
+
 ## Goals
 
 - Independence from big tech
@@ -95,7 +117,7 @@ ypical self-hosting approaches rely on port forwarding or reverse proxies expose
 - Ubuntu Linux (x86)
 - Raspberry pi OS Lite - Debian bookworm (ARM)
 - Oracle Ubuntu instance (1 virtual x86 core)
-- Iptables / netfilter / ufw (uncomplicated fire wall)
+- Iptables / ufw (uncomplicated fire wall)
 - Immich (self-hosted photo platform)
 
 ## Repository Structure
