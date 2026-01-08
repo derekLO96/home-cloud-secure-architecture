@@ -166,7 +166,8 @@ The following threats were **intentionally** excluded from this model:
 - Zero-day vulnerabilities in Immich
 - Cloud provider insider threats
 - Supply chain attacks
-  These threats require different mitigation strategies beyond the scope of this project.
+
+These threats require different mitigation strategies beyond the scope of this project.
 
 ## Assumptions
 
@@ -176,4 +177,5 @@ This threat model assumes:
 - Timely system updates and patching
 - No shared VPN keys between devices
 - Proper operational security by the system operator
-  Violation of these assumptions may invalidate parts of this model.
+
+Violation of these assumptions may invalidate parts of this model.
