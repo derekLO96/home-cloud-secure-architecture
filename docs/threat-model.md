@@ -146,3 +146,34 @@ Accidental exposure caused by incorrect firewall or Docker settings.
 - Explicit allow rules
 - No default-open rules
 - Documentation of configuration decisions
+
+## Risk Summary
+
+|         Threat          | Residual Risk |
+| :---------------------: | :-----------: |
+| Public Service Exploit  |      Low      |
+| Unauthorized VPN access |      Low      |
+|     SSH compromise      |  Low-Medium   |
+|    Lateral movement     |    Medium     |
+|    Data Exfiltration    |      Low      |
+|    Misconfiguration     |    Medium     |
+
+## Out-of-Scope Threats
+
+The following threats were **intentionally** excluded from this model:
+
+- Physical access to private server
+- Zero-day vulnerabilities in Immich
+- Cloud provider insider threats
+- Supply chain attacks
+  These threats require different mitigation strategies beyond the scope of this project.
+
+## Assumptions
+
+This threat model assumes:
+
+- Secure generation and storage of cryptographic keys
+- Timely system updates and patching
+- No shared VPN keys between devices
+- Proper operational security by the system operator
+  Violation of these assumptions may invalidate parts of this model.
