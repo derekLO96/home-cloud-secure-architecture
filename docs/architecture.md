@@ -131,4 +131,4 @@ Crossing that trust boundary requires key authentication and encryption.
 - VPN dependency for availability
 - Higher operational overhead
 
-These tradeoffs were accepted in favor of stronger security guarantees dur to the nature of the sensitive data that would be stored on this server.
+These tradeoffs were accepted in favor of stronger security guarantees due to the nature of the sensitive data that would be stored on this server.
