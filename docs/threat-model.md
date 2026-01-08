@@ -23,15 +23,126 @@ The loss of confidentiality, integrity, or availability of these assets would re
 
 ## Threat Actors
 
-|                                Actor                                | Capability |            Motivation            |
-| :-----------------------------------------------------------------: | :--------: | :------------------------------: |
-|                                                                     |            |
-|    Opportunistic internet scanners Low Exploit exposed services     |    Low     |     Exploit exposed services     |
-|                                                                     |            |
-|         Targeted attackers Medium Data theft or persistence         |   Medium   |    Data theft or persistence     |
-|                                                                     |            |
-|            Malicious insiders Medium Unauthorized access            |   Medium   |       Unauthorized access        |
-|                                                                     |            |
-|              Bots Low-Medium Brute-force, enumeration               | Low-Medium |     Brute-force, enumeration     |
-|                                                                     |            |
-| Accidental misconfiguration High Unintentional exposure/leaked data |    High    | Unintentional exposure / leakage |
+|              Actor              | Capability |            Motivation            |
+| :-----------------------------: | :--------: | :------------------------------: |
+|                                 |            |
+| Opportunistic internet scanners |    Low     |     Exploit exposed services     |
+|                                 |            |
+|       Targeted attackers        |   Medium   |    Data theft or persistence     |
+|                                 |            |
+|       Malicious insiders        |   Medium   |       Unauthorized access        |
+|                                 |            |
+|              Bots               | Low-Medium |     Brute-force, enumeration     |
+|                                 |            |
+|   Accidental misconfiguration   |    High    | Unintentional exposure / leakage |
+
+## Trust Boundaries
+
+The system enforces multiple trust boundaries
+
+- **Public internet** : untrusted
+- **Oracle Bastion** : semi-trusted (internet-facing)
+- **VPN network** : trusted, authenticated
+- **Home server** : trusted
+
+## Attack Surfaces
+
+The following attack surfaces were evaluated:
+
+- WireGuard interface on Bastion
+- SSH service on Bastion
+- Docker runtime on home server
+- Immich application endpoints
+- VPN routing and firewall configurations
+- User privilege and password management
+
+## Threat Analysis
+
+### 1. Public Service Exploitation
+
+**Description**:
+Exploitation of publicly exposed application services
+
+**Risk**: High
+Likelihood: High (common internet scans)
+
+**Mitigation**:
+
+- No public exposure of home server
+- No inbound NAT or port forwarding to private server
+- Immich accessible only via WireGuard
+
+### 2. Unauthorized Network Access
+
+**Description**:
+An Attacker attempts to join or traverse the private network.
+
+**Risk**: High
+**Likelihood**: Medium
+
+**Mitigation**:
+
+- WireGuard cryptographic key authentication
+- Explicit peer configuration
+- No password-based VPN access
+- Ability to revoke access by removing keys
+
+### 3. Brute-Force SSH Attacks
+
+**Description**:
+Automated attempts to gain access to Oracle Bastion via SSH.
+
+**Risk**: Medium
+**Likelihood**: High
+
+**Mitigation**:
+
+- SSH key-only authentication
+- Fail2Ban enforcement
+- Minimal exposed services
+- Oracle Cloud firewall rules
+
+### 4. Lateral Movement
+
+**Description**:
+Compromised component attempts to move laterally within the network.
+
+**Risk**: Medium
+**Likelihood**: Medium
+
+**Mitigation**:
+
+- Restricted VPN routing
+- Hub-and-spoke network design
+- No peer-to-peer client routing
+- Firewall rules limiting traffic scope
+
+### 5. Data Exfiltration
+
+**Description**:
+Unauthorized extraction of photos or metadata.
+
+**Risk**: High
+**Likelihood**: Low-Medium
+
+**Mitigation**:
+
+- Encrypted transport via WireGuard
+- No public application endpoints
+- Container isolation
+- OS-level permission on storage
+
+### 6. Misconfiguration Exposure
+
+**Description**:
+Accidental exposure caused by incorrect firewall or Docker settings.
+
+**Risk**: High
+**Likelihood**: Medium
+
+**Mitigation**:
+
+- Minimal configuration footprint
+- Explicit allow rules
+- No default-open rules
+- Documentation of configuration decisions
