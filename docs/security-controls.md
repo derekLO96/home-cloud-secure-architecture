@@ -184,11 +184,11 @@ Improves reliability and audibility of security settings
 
 ## Limitations
 
-The following limitations are acknowledged:
+The following limitations are known and accepted:
 
 - No centralized SIEM (**s**ecurity **i**nformation and **e**vent **m**anagement)
 - Limited active intrusion detection
-- Manual key rotation
-- No automated compliance validation
+- Manual key-pair rotation
+- No automated credentials revocation, key generation, VPN configuration, and log monitoring.
 
-These limitations are acceptable given the project's scope and are documented for transparency.
+These limitations are acceptable given the project's scope and are documented just for transparency.
