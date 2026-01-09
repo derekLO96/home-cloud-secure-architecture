@@ -6,12 +6,11 @@ This threat model was created to help me think more clearly about what I was try
 
 Rather than aiming for a perfect or exhaustive model, the goal was to practice security thinking and to make informed design decisions while building a real system.
 
-## Assets
+## What I Am Protecting (Assets)
 
 The following assets were identified as security-critical:
 
 - Personal photos and videos
-- Photos of government documents and identifications
 - Photo metadata (timestamps, locations, faces, etc.)
 - Immich application credentials
 - WireGuard private keys
@@ -19,7 +18,7 @@ The following assets were identified as security-critical:
 - Home server Operating system
 - SSH private keys
 
-The loss of confidentiality, integrity, or availability of these assets would represent a security failure.
+Protecting these assets mainly means preserving confidentiality, while also maintaining integrity and availability where possible.
 
 ## Threat Actors
 
@@ -38,25 +37,18 @@ The loss of confidentiality, integrity, or availability of these assets would re
 
 ## Trust Boundaries
 
-The system enforces multiple trust boundaries
+One of the most powerful concepts I learned was the idea of trust boundaries.
+
+In this system:
 
 - **Public internet** : untrusted
-- **Oracle Bastion** : semi-trusted (internet-facing)
-- **VPN network** : trusted, authenticated
-- **Home server** : trusted
+- **Oracle Bastion** : partially trusted (exposed to the internet)
+- **VPN network** : trusted once authenticated
+- **Home server** : fully trusted
 
-## Attack Surfaces
+## Main Areas of Risk
 
-The following attack surfaces were evaluated:
-
-- WireGuard interface on Bastion
-- SSH service on Bastion
-- Docker runtime on home server
-- Immich application endpoints
-- VPN routing and firewall configurations
-- User privilege and password management
-
-## Threat Analysis
+Through building and troubleshooting the system, a few key risk areas became clear
 
 ### 1. Public Service Exploitation
 
@@ -66,7 +58,7 @@ Exploitation of publicly exposed application services
 **Risk**: High
 Likelihood: High (common internet scans)
 
-**Mitigation**:
+**Solution**:
 
 - No public exposure of home server
 - No inbound NAT or port forwarding to private server
@@ -80,7 +72,7 @@ An Attacker attempts to join or traverse the private network.
 **Risk**: High
 **Likelihood**: Medium
 
-**Mitigation**:
+**Solution**:
 
 - WireGuard cryptographic key authentication
 - Explicit peer configuration
@@ -95,7 +87,7 @@ Automated attempts to gain access to Oracle Bastion via SSH.
 **Risk**: Medium
 **Likelihood**: High
 
-**Mitigation**:
+**Solution**:
 
 - SSH key-only authentication
 - Fail2Ban enforcement
@@ -110,7 +102,7 @@ Compromised component attempts to move laterally within the network.
 **Risk**: Medium
 **Likelihood**: Medium
 
-**Mitigation**:
+**Solution**:
 
 - Restricted VPN routing
 - Hub-and-spoke network design
@@ -125,7 +117,7 @@ Unauthorized extraction of photos or metadata.
 **Risk**: High
 **Likelihood**: Low-Medium
 
-**Mitigation**:
+**Solution**:
 
 - Encrypted transport via WireGuard
 - No public application endpoints
@@ -140,7 +132,7 @@ Accidental exposure caused by incorrect firewall or Docker settings.
 **Risk**: High
 **Likelihood**: Medium
 
-**Mitigation**:
+**Solution**:
 
 - Minimal configuration footprint
 - Explicit allow rules
@@ -160,22 +152,20 @@ Accidental exposure caused by incorrect firewall or Docker settings.
 
 ## Out-of-Scope Threats
 
-The following threats were **intentionally** excluded from this model:
+These threats were **intentionally** excluded because they where deemed Out-of-Scope:
 
 - Physical access to private server
 - Zero-day vulnerabilities in Immich
 - Cloud provider insider threats
 - Supply chain attacks
 
-These threats require different mitigation strategies beyond the scope of this project.
-
 ## Assumptions
 
-This threat model assumes:
+This model assumes:
 
-- Secure generation and storage of cryptographic keys
+- Secure generation and storage of keys
 - Timely system updates and patching
-- No shared VPN keys between devices
+- Devices with VPN access are trusted
 - Proper operational security by the system operator
 
-Violation of these assumptions may invalidate parts of this model.
+If these are in any way violated, then risk increases significantly and jeopardises the entire system.
