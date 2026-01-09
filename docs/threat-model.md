@@ -136,7 +136,7 @@ Accidental exposure caused by incorrect firewall or Docker settings.
 
 **Risk**: High
 
-**Likelihood**: Medium
+**Likelihood**: High
 
 **Solution**:
 
