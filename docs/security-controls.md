@@ -6,7 +6,7 @@ This document describes the security controls used in this project and explains 
 
 Rather than listing every possible security feature, the goal here is to show how I applied core security principles, such as reducing attack surface, enforcing strong authentication, and limiting access while learning how real systems behave in practice.
 
-Tis document would not exist if it wasn't for the extraordinary work of the people in NIST. The document that inspired this one can be found at:
+This document would not exist if it wasn't for the extraordinary work of the people in NIST. The document that inspired this one can be found at:
 
 https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
 
@@ -17,6 +17,7 @@ It is not an easy read, but it contains so much valuable information that it bec
 ### VPN (WireGuard)
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Unauthorized network access, eavesdropping
 
 - All inter-system communication occurs over a WireGuard VPN
@@ -30,6 +31,7 @@ Eliminates exposure of internal services to the public internet while enforcing 
 ## Zero Public Application Exposure
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Service exploitation, automated scanning
 
 - Immich is not bound to any public interfaces
@@ -42,6 +44,7 @@ Removes the most common attacks in self-hosted servers.
 ## Firewall & Routing Controls
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Lateral movement, unauthorized access
 
 - Explicit iptables rules enforce how network traffic flows
@@ -55,6 +58,7 @@ Limits the blast radius of compromised components.
 ## Host-Level Security Controls
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Brute-force attacks, credential compromise
 
 - SSH key-only authentication
@@ -68,6 +72,7 @@ Prevents common automated SSH compromise attempts
 ## Intrusion Prevention (Fail2Ban)
 
 **Control Type**: Detective/Preventive
+
 **Risk Addressed**: Repeated authentication attempts
 
 - Fail2Ban monitors SSH logs
@@ -80,6 +85,7 @@ Adds a reactive layer to exposed entry points
 ## System Hardening
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Privilege escalation, system compromise
 
 - Minimal installed packages
@@ -95,6 +101,7 @@ Reduces exploitable surface area at the OS level
 ### Containerization (Docker)
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Application compromise, dependency conflicts
 
 - Immich runs inside Docker containers
@@ -108,6 +115,7 @@ Limits impact pf application-level vulnerabilities
 ## Application Access Control
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Unauthorized application use
 
 - Immich accessible only through WireGuard
@@ -122,6 +130,7 @@ Ensures only authenticated VPN users can reach the home server.
 ### Encrypted Transport
 
 **Control Type**: Preventive
+
 **Risk Addressed**: Traffic interception, MITM attacks
 
 - WireGuard uses modern cryptographic primitives
@@ -134,6 +143,7 @@ Protects confidentiality and integrity of data in motion.
 ## Key Management
 
 **Control Type**: Administrative/Preventive
+
 **Risk Addressed**: Unauthorized access
 
 - Unique WireGuard key pairs per device
@@ -148,6 +158,7 @@ Allows precise access control and rapid Revocation
 ### Logging
 
 **Control Type**: Detective
+
 **Risk Addressed**: Undetected compromise
 
 - System logs enabled on Oracle bastion and home server
@@ -161,6 +172,7 @@ Supports incident investigation and troubleshooting
 ### Configuration Management
 
 **Control Type**: Administrative
+
 **Risk Addressed**: Misconfiguration
 
 - Configurations documented in version-controlled repository
