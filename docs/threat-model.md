@@ -1,10 +1,10 @@
 ## Threat Model
 
-### Overview
+### Why This Document Exists
 
-This document outlines the threat model for this project. The goal of this analysis is to identify key assets, potential threat actors, attack surfaces, and implemented mitigations in order to evaluate the system's security posture.
+This threat model was created to help me think more clearly about what I was trying to protect, who or what could realistically threaten the system, and where things could go wrong.
 
-The threat model focuses on network exposure, unauthorized access, data confidentiality, and lateral movement, which are the primary risks in self-hosted environments.
+Rather than aiming for a perfect or exhaustive model, the goal was to practice security thinking and to make informed design decisions while building a real system.
 
 ## Assets
 
