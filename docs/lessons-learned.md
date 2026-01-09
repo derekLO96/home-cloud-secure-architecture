@@ -37,7 +37,7 @@ This part of the project really deepened my understanding of how real world netw
 ## 3. Cloud Bastions Are a Practical Security Patterns
 
 I first learned of the word Bastion through Oracle's own cloud infrastructure diagram.
-![Oracle Bastion Overview](Images/bastion-overview-diagram.png "An overview of Oracle's cloud infrastructure (Regional)")
+![Oracle Bastion Overview](~/Images/bastion-overview-diagram.png "An overview of Oracle's cloud infrastructure (Regional)")
 
 Using a cloud bastion as a relay felt easy at first due to that diagram, but proved to be much more complex than imagined. Even so, this was probably the most valuable part of this design.
 
