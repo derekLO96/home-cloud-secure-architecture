@@ -1,14 +1,20 @@
 ## Security Controls
 
-### Overview
+### Why This Document Exists
 
-This document outlines the technical and administrative security controls implemented in this project's architecture. Controls are grouped by function and mapped to the risk they mitigate.
+This document describes the security controls used in this project and explains why they were chosen.
 
-The objective is to reduce attack surface, enforce strong authentication, protect sensitive data, and limit the impact of potential compromises.
+Rather than listing every possible security feature, the goal here is to show how I applied core security principles, such as reducing attack surface, enforcing strong authentication, and limiting access while learning how real systems behave in practice.
+
+Tis document would not exist if it wasn't for the extraordinary work of the people in NIST. The document that inspired this one can be found at:
+
+https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf
+
+It is not an easy read, but it contains so much valuable information that it became the bedrock of this document.
 
 ## Network Security Controls
 
-### Private Overlay Network (WireGuard)
+### VPN (WireGuard)
 
 **Control Type**: Preventive
 **Risk Addressed**: Unauthorized network access, eavesdropping
