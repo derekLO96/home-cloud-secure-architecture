@@ -56,7 +56,8 @@ Through building and troubleshooting the system, a few key risk areas became cle
 Exploitation of publicly exposed application services
 
 **Risk**: High
-Likelihood: High (common internet scans)
+
+**Likelihood**: High (common internet scans)
 
 **Solution**:
 
@@ -70,6 +71,7 @@ Likelihood: High (common internet scans)
 An Attacker attempts to join or traverse the private network.
 
 **Risk**: High
+
 **Likelihood**: Medium
 
 **Solution**:
@@ -85,6 +87,7 @@ An Attacker attempts to join or traverse the private network.
 Automated attempts to gain access to Oracle Bastion via SSH.
 
 **Risk**: Medium
+
 **Likelihood**: High
 
 **Solution**:
@@ -100,6 +103,7 @@ Automated attempts to gain access to Oracle Bastion via SSH.
 Compromised component attempts to move laterally within the network.
 
 **Risk**: Medium
+
 **Likelihood**: Medium
 
 **Solution**:
@@ -115,6 +119,7 @@ Compromised component attempts to move laterally within the network.
 Unauthorized extraction of photos or metadata.
 
 **Risk**: High
+
 **Likelihood**: Low-Medium
 
 **Solution**:
@@ -130,6 +135,7 @@ Unauthorized extraction of photos or metadata.
 Accidental exposure caused by incorrect firewall or Docker settings.
 
 **Risk**: High
+
 **Likelihood**: Medium
 
 **Solution**:
