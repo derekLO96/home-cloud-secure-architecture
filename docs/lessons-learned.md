@@ -3,7 +3,7 @@
 ### Why This Document Exists
 
 This project was intentionally ambitious for my current stage as a college undergraduate.
-The goal of this document is to reflect honestly on what I learned, what challenged me, and how this project shaped my understanding of cybersecurity beyond just theory and NIST web pages.
+The goal of this document is to reflect honestly on what I learned, what challenged me, and how this project shaped my understanding of cybersecurity beyond just theory.
 
 Rather than presenting this system as "perfect," this file captures the lessons gained from building, breaking, fixing and documenting a real-world security focused project.
 
@@ -11,15 +11,13 @@ Rather than presenting this system as "perfect," this file captures the lessons 
 
 One of the biggest lessons from this project was realizing how much risk can be reduced simply by not exposing services to the internet at all.
 
-Early on, I assumed security would mainly invilve adding protections after deployment. Instead, the most impactful decision was architectural, keeping the application private and accessible only through a VPN.
+Early on, I assumed security would mainly involve adding protections after deployment. Instead, the most impactful decision was architectural, keeping the application private and accessible only through a VPN.
 
 From this what I learned:
 
 - Fewer exposed services means fewer things to defend
 - Architecture decisions matter more than individual tools
 - Security can often be improved by removing features, not adding them
-
-If I where to start this project now I would spend more time in architectural planning than figuring it out as I went along.
 
 ## 2. Networking Is More Complex Than It Looks in Diagrams
 
@@ -65,7 +63,7 @@ This reinforced the idea that tools are only as secure as how they are used. A c
 
 ## 5. Most Problems Come From Misconfiguration
 
-Throughout this project, the biggest issues I encountered were caused by my own misconfigurations. A security risk echoed by the biggest players in the cybersecurity game (NIST, MSTIC, MITRE, to name a few).
+Throughout this project, the biggest issues I encountered were caused by my own misconfiguration. A security risk echoed by the biggest players in the cybersecurity game.
 
 What I learned:
 
@@ -96,7 +94,7 @@ Examples:
 
 - VPN-only access increased security, sure, but reduced convenience and increased complexity
 - No public DNS reduced exposure but limited flexibility
-- Manual key management improved control but added overhead and time consuption
+- Manual key management improved control but added overhead and time consumption
 - iptables and ufw configurations limited the attack surface but turbocharged complexity
 
 What I learned:
@@ -120,7 +118,7 @@ This project pushed me well outside my comfort zone and confirmed my passion in 
 
 This project initially started because I wanted to break away from my dependency on BigTech. I wanted to take all my most valuable photos and videos and store them securely at my house, where I could have more control over my memories, but I didn't want to loose that convenience of remote access from anywhere in the world.
 
-Now that I have achieved that initial desire while still maintaining it as secure if not more secure, I can start looking into other ways that I can increase my independence. Now that I have my photos and videos securely backed up at home, I can look forward now into adding a file vault, like Google's Drive application. I could add a github like service for my future projects and documentation. Maybe in the far future, my encrypted identification and encrypted credit card information (this one needs more planning and industry level security).
+Now that I have achieved that initial desire while still maintaining it as secure if not more secure than before, I can start looking into other ways that I can increase my independence. Now that I have my photos and videos securely backed up at home, I can look forward now into adding a file vault, like Google's Drive application. I could add a GitHub like service for my future projects and documentation. Maybe in the far future, my encrypted identification and encrypted credit card information (this one needs more planning and industry level security).
 
 In the near future, though, I look forward into adding:
 
