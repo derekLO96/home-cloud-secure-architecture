@@ -1,21 +1,28 @@
 ## Deployment
 
-### Overview
+### Why This Document Exists
 
-This document describes the deployment process for this project. The focus is on secure provisioning, controlled exposure, and repeatable setup, rather than step-by-step installation instructions.
+This document describes the deployment process for this project. It focuses on the documentation of what I went through and the thought process on which this project came to life.
 
-All components are deployed with the assumption that no application service is publicly exposed and that access occurs exclusively through an authenticated VPN.
+Here I will walk you, the reader, step by step on how I achieved my goals of creating a secure photo and video server at home. This document has several parts to it and it follows the exact steps I took to get to a functional system.
 
 ### Deployment Model
 
-The system follows a hub-and-spoke deployment model:
-**1.** Oracle bastion is configured and provisioned first
-**2.** Home server is configured and deployed second
-**3.** Client devices are then configured and added last
+Before I begin it is important to understand what the model is for this project so the vision is more clear on how this project was achieved.
 
-This order ensures that secure connectivity is established before any application services become accessible
+This project follows a hub-and-spoke model, this means that there is a central system, the hub, that connects other systems together, the spokes:
+
+**1.** Oracle bastion is configured and provisioned first (hub)
+
+**2.** Home server is configured and deployed second (spoke)
+
+**3.** Client devices are then configured and added last (spoke)
+
+This order is **crucial** and it ensures that secure connectivity is established **before** any application services become accessible.
 
 ## Prerequisites
+
+Lets make sure that we have everything in place before configuration can begin.
 
 ### Infrastructure
 
@@ -35,96 +42,84 @@ This order ensures that secure connectivity is established before any applicatio
 
 ### Phase 1: Oracle Bastion Configuration
 
-The Oracle bastion serves as the only internet-facing component and must be deployed first.
+The concept of a "cloud bastion" is explained on the lessons-learn.md file and is recommended to go see first before continuing reading this document.
 
-Key steps:
+**1.** Create an oracle cloud account. This website explains exactly how to do just that:
 
-- Configuring minimal Linux VM
-- Apply system updates
-- Install WireGuard
-- Generate key pairs for clients
-- Harden SSH access
-- Configure firewall and iptables rules
-- Download, install and configure Fail2Ban
+```
+https://profile.oracle.com/myprofile/account/create-account.jspx
+```
 
-Security consideration:
+**2.** Now create a compute instance:
 
-- SSH key-only authentication
-- Minimal open ports (SSH + WireGuard only)
-- Default-deny firewall posture
+While logged into your oracle cloud account and on the main menu, go to the navigation menu -> compute -> instance
 
-The bastion must be fully secured before VPN peers are added
+![Oracle instance menu](Images/oracle-instance-meny.png "walk-through step 2")
+
+**3.** Select the "Create Instance Button"
+
+**4.** Lets configure this page so there are no confusions
+
+- Choose a name for you cloud relay
+- Under "Placement" leave the default option "AD1" during the time of this writing
+- Under the Advanced option you can leave the default option once again "On-demand capacity"
+- Leave cluster placement group off
+- Under "Image" select "Change Image," Select the Ubuntu image, scroll down and choose "Canonical Ubuntu {Latest Version}," then press the "Select Image" button.
+- Under "Shape" select the "Change Shape" button, choose "Virtual Machine," then under choose "Specialty and previous generation," scroll down and under "Image" choose the option that says "Always Free-eligible."
+- Ignore the advance tab for now
+- Click the "Next" button
+- Under "Security" choose the "Shielded Instance" option. Since not all free options will allow us to have the "confidential computing" option, there might be an error message informing us of this. For this project this is acknowledged and is considered to not impede what this project set out to accomplish. Click the "Next" button.
+- Under "Primary VNCI" create a name for you virtual network interface card
+- Under "Primary network" choose the "create new virtual cloud network" option
+- choose a virtual cloud network name
+- Under "Subnet" choose the name of the new subnet being created
+- Under "CIDR block" you can leave this as "10.0.0.0/24"
+- skip all other option until we reach the SSH portion of configuration
+- Under "Add SSH Keys" choose "Generate key pair for me" and then press the "Download private key" and "Download public key" buttons. **KEEP THESE SAFE** and under no circumstances share your private key with anyone else.
+- press the "Next" button
+- Skip this portion for it is not relevant for this project
+- You will be directed to a page to confirm that all the information is correct.
+- click the "Create" button. Here you might get any number of errors, although i cannot go through all the errors because it is outside the scope of this document, just know that if you need to change your shape because of availability, do so because it will not change how the rest of this project proceeds and will not impede on the ability to successfully accomplish our task.
+- You will be taken to the "Work Request" page, wait until the "State" of your instance says "Succeeded." if Failed, follow oracle's own error messages and help pages.
+
+**5.** Congratulations, you have now an oracle instance, but it is not connected to the internet yet or publicly available to connect to. This step will focus on getting the server visible on the internet and setting up some network configurations.
+
+- Go back to the instance menu
+- Click on your instance's name where you will be taken to the controls and configurations of your instance.
+- Select the "Networking" category
+- You should see a "Public IPv4 address," if you do your instance is connected to the internet! skip to step 6. If not don't worry, its easily fixed.
+- scroll down the "Networking" page and under "Quick Actions" select the button "Connect"
+- If no VCN (Virtal cloud network) is selected, then create one by clicking the highlighted button.
+- leave all other option for now and click the "Connect" button.
+- you will now see a IPv4 address on the top of the page, this is your server's IPv4 address.
+
+**6.** Now that we have configured the server to be visible from the public internet, we can SSH into the server and start our configurations. Before we get to connecting, though, we want to figure out what the username is for our ssh session. On the instance's home page, under the "Details" category, we scroll down until we see "Instant Access," there the "Username" will be listed right under "Public IP address." These are the two pieces of information we will use to SSH into our server. For simplicity sake let's say the username is "Ubuntu" for example.
+
+- Open a terminal and navigate to the folder where your private key is located
+- change the permission on your private key:
+
+```bash
+chmod 600 your-ssh-key.key
+```
+
+- Now connect to your server:
+
+  ```bash
+  ssh -i your-ssh-key.key Ubuntu@{Your server public IP}
+  ```
+
+  the ` -i` option for ssh is the identity key that you should have been downloaded on step 4
+
+- You will be prompted to save the host as trusted, type `yes` and connect
+- You have successfully connected to your server!
 
 ### Phase 2. VPN Configuration (WireGuard)
 
-WireGuard is configured in a hub-and-spoke topology:
-
-- Bastion acts as the central peer, routing all VPN traffic
-- Home server and clients connect only to the bastion and never directly to each other
-
-Deployment principles:
-
-- Unique key pair per device
-- Static VPN IP assignment
-- Explicit Allowed IPs configuration
-- No wildcard routing
-
-Once established, the VPN is validated before proceeding.
-
 ### Phase 3: Home Server Deployment
-
-The Home server hosts the Immich application and is **never** exposed directly to the internet.
-
-Deployment steps:
-
-- Configure minimal Raspberry pi OS Lite
-- Generate SSH key pairs for clients
-- Harden SSH access
-- Apply system updates
-- Download, install and configure WireGuard
-- Download, install and configure ufw
-- Download, install and configure iptables
-- Install Docker and Docker Compose
-- Download and install Immich via Docker
-- Configure Immich services
-- Bind Immich and docker services to internal interfaces **only**
-- Verify that no ports are accessible outside the VPN
-
-Security considerations:
-
-- No inbound NAT or port forwarding
-- SSH is hardened and only accessible with authenticated keys
-- Containers isolated from host network
-- Access limited to VPN subnet
-
-Application deployment occurs only after VPN connectivity is confirmed.
 
 ### Phase 4: Firewall & Routing Validation
 
-Firewall and routing rules are validated to ensure:
-
-- Only required traffic is permitted
-- No unintended lateral movement
-- No accidental internet exposure
-
-Validation includes:
-
-- Testing access from authorized VPN clients
-- Verifying denial of access from non-VPN sources
-- Confirming absence of listening services on public interfaces
-
 ### Phase 5: Client Onboarding
-
-Client devices are onboarded individually.
-
-Process:
-
-- Generate unique WireGuard key pair
-- Assign dedicated VPN IP
-- Restrict Allowed IPs to required services
-- Test access through the VPN
-
-Access can be revoked at any time by removing the peer configuration from the bastion's 'wg0.conf' file.
 
 ## Deployment Validation Checklist
 
