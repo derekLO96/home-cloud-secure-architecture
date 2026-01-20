@@ -115,6 +115,45 @@ chmod 600 your-ssh-key.key
 
 ### Phase 2. VPN Configuration (WireGuard)
 
+Before we can get to the home server configuration we must first set up WireGuard on the cloud bastion. This will leave a door open for our home servers and clients to connect to each other once we finish configuring them.
+
+While connected to your cloud bastion via SSH through the terminal
+
+- Download WireGuard, ufw and nftables
+  ```bash
+  sudo apt install wireguard ufw nftables
+  ```
+- make sure that it has been installed correctly
+
+  ```bash
+  which wireguard
+  which nftables
+  which ufw
+  ```
+
+- ufw should be disabled by default, but if not disable it for now we will come back to it later.
+
+```bash
+sudo ufw disable
+```
+
+- Persist ipv4 forwarding, we need this for our cloud bastion to rout traffic for our WireGuard setup.
+
+  ```bash
+  echo "net.ipv4.ip_forward=1" | sudo tee /etc/sysctl.d/99-wireguard.conf
+  sudo sysctl --system
+  ```
+
+- create new rules for your nftables
+
+  ```bash
+  sudo nft add table inet filter
+  sudo nft add chain inet filter input { type filter hook input priority 0 \; policy drop \; }
+  sudo nft add chain inet filter forward { type filter hook forward priority 0 \; policy drop \; }
+  sudo nft add chain inet filter output { type filter hook output priority 0 \; policy accept \; }
+
+  ```
+
 ### Phase 3: Home Server Deployment
 
 ### Phase 4: Firewall & Routing Validation
